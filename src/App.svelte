@@ -1,9 +1,7 @@
 
 <script lang="ts">
-	/* eslint-disable jsx-a11y/media-has-caption */
 	// These values are bound to properties of the video
 	let time = 0;
-	let paused = false;
 	let tempPovValue = "POV";
 	let mainVideo;
 
@@ -44,10 +42,7 @@
 		pov = tempPovValue;
 		time = currentTime;
 		paused = currentPaused;*/
-		console.log(paused);
-		paused = false;
 		time = 200;
-		console.log(paused);
 	}
 
 
@@ -56,7 +51,7 @@
 
 
 	let povs = ["Cam", "Loftzu", "Tom", "Yuri", "Base", "Default UI"];
-	let pov = povs[1];
+	let selectedPov = povs[1];
 </script>
 
 <svelte:head>
@@ -66,22 +61,26 @@
 </svelte:head>
 <div>
 	<div id = "container" style = "position:relative">
-		<div id = "mainVideo" style = "position:absolute; top:0; left:0; z-index: 1; opacity : 1">
-			<video src = "assets/POV {pov}.mp4"
-				bind:currentTime = {time}
-				bind:paused= {paused}
-				bind:this = {mainVideo}
-				id = "povVideo"></video>
-		</div>"
+			{#each povs as pov}
+				<div id = "mainVideo" style = "position:absolute; top:0; left:0; z-index: 1; opacity : 1">
+					<!-- svelte-ignore a11y-media-has-caption -->
+					<video src = "assets/POV {pov}.mp4"
+						bind:currentTime = {time}
+						id = "povVideo"
+						style = "opacity : {selectedPov == pov ? 1 : 0}"></video>
+				</div>
+			{/each}
 		
-		<div class = "playerBoosts" style = "opacity: {showBoosts ? 1 : 0}; z-index: 2; display: grid; grid-template-columns: 1428px 300px; grid-template-rows: 600px auto 30px auto">
+		<div class = "playerBoosts" style = "position:absolute; top:0; left:0; z-index: 1; opacity: {showBoosts ? 1 : 0}; z-index: 2; display: grid; grid-template-columns: 1068px 300px; grid-template-rows: 600px auto 30px auto">
 			{#each players as player, i}
+				<!-- svelte-ignore a11y-media-has-caption -->
 	 			<video src = "assets/Boost {player}.mp4"
 		 			bind:currentTime = {time}
 		 			id = "boostVideo"
 					style = "padding-bottom:0px; grid-column: {i < 2 ? 1 : 2}; grid-row: {i % 2 == 0 ? 2 : 4}"></video>
  			{/each}
 		</div>
+		<!-- svelte-ignore a11y-media-has-caption -->
 		<video src = "assets/Timer.mp4" style = "position:absolute; top: 0; left: 790px; z-index: 3; width: 200px"
 			bind:currentTime = {time}></video>
 		<div class = "uiContainer" style = "z-index: 3; position:absolute; left: 1750px; top: 0px">
