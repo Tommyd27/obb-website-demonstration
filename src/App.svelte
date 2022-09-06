@@ -50,8 +50,8 @@
 	let players = ["Cam", "Loftzu", "Tom", "Yuri"];
 
 
-	let povs = ["Cam", "Loftzu", "Tom", "Yuri", "Base", "Default UI"];
-	let selectedPov = povs[1];
+	let povs = {"Cam": "", "Loftzu": "", "Tom": "", "Yuri": "", "Base": "", "Default UI": ""};
+	let selectedPov = "Cam";
 </script>
 
 <svelte:head>
@@ -61,11 +61,12 @@
 </svelte:head>
 <div>
 	<div id = "container" style = "position:relative">
-			{#each povs as pov}
+			{#each Object.keys(povs) as pov}
 				<div id = "mainVideo" style = "position:absolute; top:0; left:0; z-index: 1; opacity : 1">
 					<!-- svelte-ignore a11y-media-has-caption -->
 					<video src = "assets/POV {pov}.mp4"
 						bind:currentTime = {time}
+						bind:this = {povs[pov]}
 						id = "povVideo"
 						style = "opacity : {selectedPov == pov ? 1 : 0}"></video>
 				</div>
@@ -85,7 +86,7 @@
 			bind:currentTime = {time}></video>
 		<div class = "uiContainer" style = "z-index: 3; position:absolute; left: 1750px; top: 0px">
 			<select bind:value = {tempPovValue}>
-				{#each povs as povOption}
+				{#each Object.keys(povs) as povOption}
 					<option value = {povOption}>
 						{povOption}
 					</option>
@@ -97,7 +98,7 @@
 		</div>
 		
 		
- 	</div>
+</div>
 	
 
 
