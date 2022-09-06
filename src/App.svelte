@@ -3,46 +3,29 @@
 	// These values are bound to properties of the video
 	let time = 0;
 	let tempPovValue = "POV";
-	let mainVideo;
 
-	/*function handlePovSubmit()
+	function toggleVideo()
 	{
-		let currentTime = time;
-		let currentlyPaused = paused;
-
-		console.log("currentTime: ", currentTime);
-		console.log("currentlypaused: ", currentlyPaused);
-		console.log("time ", time)
-		console.log("paused ", paused);
-		console.log("");
-		pov = tempPovValue;
-		console.log("currentTime: ", currentTime);
-		console.log("currentlypaused: ", currentlyPaused);
-		console.log("time ", time)
-		console.log("paused ", paused);
-		console.log("");
-		
-		//time = currentTime;
-		//paused = currentlyPaused;
-		console.log("currentTime: ", currentTime);
-		console.log("currentlypaused: ", currentlyPaused);
-		console.log("time ", time)
-		console.log("paused ", paused);
-		console.log("");
-
-		mainVideo.play();
-		
-
-
-	}*/
+		if (povs[selectedPov].paused)
+		{
+			povs[selectedPov].play()
+		}
+		else
+		{
+			povs[selectedPov].pause()
+		}
+	}
 	function handlePovSubmit()
 	{
-		/*let currentTime = time;
-		let currentPaused = paused;
-		pov = tempPovValue;
-		time = currentTime;
-		paused = currentPaused;*/
-		time = 200;
+		let isPaused = povs[selectedPov].paused
+		
+		povs[selectedPov].pause()
+		selectedPov = tempPovValue
+		if (!isPaused)
+		{
+			povs[selectedPov].play()
+		}
+		
 	}
 
 
@@ -94,6 +77,9 @@
 			</select>
 			<button type=submit on:click={handlePovSubmit}>
 				Change POV
+			</button>
+			<button type=submit on:click={toggleVideo}>
+				Play/ Pause Video
 			</button>
 		</div>
 		
