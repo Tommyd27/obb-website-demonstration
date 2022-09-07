@@ -1,5 +1,5 @@
 
-<script lang="ts">
+<script>
 	// These values are bound to properties of the video
 	let time = 0;
 	let tempPovValue = "POV";
