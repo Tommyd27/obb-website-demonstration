@@ -18,23 +18,32 @@
 	function handlePovSubmit()
 	{
 		let isPaused = povs[selectedPov].paused
+		let videoTime = povs[selectedPov].currentTime
+		console.log(videoTime)
 		
 		povs[selectedPov].pause()
+		povs[tempPovValue].currentTime = videoTime
 		selectedPov = tempPovValue
+		
 		if (!isPaused)
 		{
 			povs[selectedPov].play()
 		}
 		
 	}
-
+	function info()
+	{
+		console.log(selectedPov);
+		console.log(povs);
+		console.log(tempPovValue);
+	}
 
 	let showBoosts = true;
 	let players = ["Cam", "Loftzu", "Tom", "Yuri"];
 
 
 	let povs = {"Cam": "", "Loftzu": "", "Tom": "", "Yuri": "", "Base": "", "Default UI": ""};
-	let selectedPov = "Cam";
+	let selectedPov = "Tom";
 </script>
 
 <svelte:head>
@@ -48,22 +57,22 @@
 				<div id = "mainVideo" style = "position:absolute; top:0; left:0; z-index: 1; opacity : 1">
 					<!-- svelte-ignore a11y-media-has-caption -->
 					<video src = "assets/POV {pov}.mp4"
-						bind:currentTime = {time}
 						bind:this = {povs[pov]}
+						
 						id = "povVideo"
 						style = "opacity : {selectedPov == pov ? 1 : 0}"></video>
 				</div>
 			{/each}
 		
-		<div class = "playerBoosts" style = "position:absolute; top:0; left:0; z-index: 1; opacity: {showBoosts ? 1 : 0}; z-index: 2; display: grid; grid-template-columns: 1068px 300px; grid-template-rows: 600px auto 30px auto">
+		<!--<div class = "playerBoosts" style = "position:absolute; top:0; left:0; z-index: 1; opacity: {showBoosts ? 1 : 0}; z-index: 2; display: grid; grid-template-columns: 1068px 300px; grid-template-rows: 600px auto 30px auto">
 			{#each players as player, i}
-				<!-- svelte-ignore a11y-media-has-caption -->
+				<!-- svelte-ignore a11y-media-has-caption 
 	 			<video src = "assets/Boost {player}.mp4"
 		 			bind:currentTime = {time}
 		 			id = "boostVideo"
 					style = "padding-bottom:0px; grid-column: {i < 2 ? 1 : 2}; grid-row: {i % 2 == 0 ? 2 : 4}"></video>
  			{/each}
-		</div>
+		</div>-->
 		<!-- svelte-ignore a11y-media-has-caption -->
 		<video src = "assets/Timer.mp4" style = "position:absolute; top: 0; left: 790px; z-index: 3; width: 200px"
 			bind:currentTime = {time}></video>
@@ -80,6 +89,9 @@
 			</button>
 			<button type=submit on:click={toggleVideo}>
 				Play/ Pause Video
+			</button>
+			<button type=submit on:click={info}>
+				Current POV
 			</button>
 		</div>
 		
