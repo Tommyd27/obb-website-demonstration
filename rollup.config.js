@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
+import json from '@rollup/plugin-json';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -36,9 +37,10 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: 'public/build/bundle.js'
+		file: 'public/build/bundle.js',
 	},
 	plugins: [
+		json(),
 		svelte({
 			preprocess: sveltePreprocess({ sourceMap: !production }),
 			compilerOptions: {
@@ -82,7 +84,7 @@ export default {
 	}
 };
 
-// add at the beginning of the file :
+/*// add at the beginning of the file :
 import json from '@rollup/plugin-json'
 
 //...
@@ -91,4 +93,4 @@ import json from '@rollup/plugin-json'
 plugins: [
   json({
     compact: true
-  }),]
+  }),]*/
