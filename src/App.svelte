@@ -1,5 +1,5 @@
 
-<script lang="ts">
+<script>
 	// These values are bound to properties of the video
 	let time = 0;
 	let tempPovValue = "POV";
@@ -28,6 +28,8 @@
 		
 	}
 
+	import boostData from "playerBoostOutput.json";
+	console.log(boostData);
 
 	let showBoosts = true;
 	let players = ["Cam", "Loftzu", "Tom", "Yuri"];
